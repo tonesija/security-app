@@ -1,13 +1,12 @@
 const express = require('express')
-require('dotenv').config()
 
 const PORT = process.env.PORT || 3000
 
 const app = express()
 
-app.use(express.static('public'));
+app.use(express.static('public'))
+app.use(express.json())
 
-app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send("Hello world!")
@@ -15,5 +14,5 @@ app.get('/', (req, res) => {
 
 
 app.listen(PORT, () => {
-console.log(`App started on port ${PORT}.`)
+  console.log(`Server started on port ${PORT}.`)
 })

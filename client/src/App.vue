@@ -1,7 +1,20 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/" class="router-link">Home</router-link>
+    <router-link to="/posts" class="router-link">Posts</router-link>
+    
+    <div class="router-link">
+      <label>Sql injection:</label>
+      <input type="checkbox">
+    </div>
+    <div class="router-link">
+      <label>XSS:</label>
+      <input type="checkbox">
+    </div>
+    <div class="router-link">
+      <label>CSRF:</label>
+      <input type="checkbox">
+    </div>
   </div>
   <router-view/>
 </template>
@@ -26,5 +39,10 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.router-link {
+  margin: 15px;
+  display: inline;
 }
 </style>
