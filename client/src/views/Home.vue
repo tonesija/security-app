@@ -3,12 +3,15 @@
     <h1>Create a post</h1>
     <p>
       Webpage contains a form to create posts and a site to view and filter posts.
-      <br> SQL injection can be tested in the filter of the posts site.
+      <br> Vulnerabilities can be turned on and off in the checkboxes above.
+      <br><br> SQL injection can be tested in the filter of the posts site.
       <br> XSS can be inserted here and checked in the posts site.
-      <br> You can create a post below.
+      <br> CSRF TODO
+      <br><br> You can create a post below.
     </p>
 
     <p class="error" v-show="errorMessage != null">{{errorMessage}}</p>
+    <p class="message" v-show="message != null">{{message}}</p>
 
 
     <form>
@@ -23,19 +26,24 @@
 </template>
 
 <script>
+import postsService from '../services/postsService'
+
 export default {
   name: 'Home',
 
-  data: function() {
+  data () {
     return {
       username: null,
       content: null,
       errorMessage: null,
+      message: null,
     }
   },
 
   methods: {
-    createPost: function() {
+    async createPost() {
+      this.message = null
+
       if(this.username == null) {
         this.errorMessage = "User's name must be set."
         return
@@ -47,7 +55,9 @@ export default {
       }
         
 
-      // TODO process create post
+      this.message = 
+        (await postsService.createPost(this.username, this.content))
+        .data
 
       this.errorMessage = null
       this.username = null
@@ -61,5 +71,9 @@ export default {
 <style scoped>
 .error {
   color: orange;
+}
+
+.message {
+  color: green;
 }
 </style>

@@ -3,21 +3,54 @@
     <router-link to="/" class="router-link">Home</router-link>
     <router-link to="/posts" class="router-link">Posts</router-link>
     
-    <div class="router-link">
-      <label>Sql injection:</label>
-      <input type="checkbox">
+    <div class="checkbox-container">
+      <div class="router-link">
+        <label>Sql injection:</label>
+        <input type="checkbox" v-model="sql" @change="switchSQL">
+      </div>
+      <div class="router-link">
+        <label>XSS:</label>
+        <input type="checkbox" v-model="xss" @change="switchXSS">
+      </div>
+      <div class="router-link">
+        <label>CSRF:</label>
+        <input type="checkbox" v-model="csrf" @change="switchCSRF">
+      </div>
     </div>
-    <div class="router-link">
-      <label>XSS:</label>
-      <input type="checkbox">
-    </div>
-    <div class="router-link">
-      <label>CSRF:</label>
-      <input type="checkbox">
-    </div>
+    
   </div>
   <router-view/>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      sql: false,
+      xss: false,
+      csrf: false,
+    }
+  },
+
+  methods: {
+    switchSQL() {
+      this.$store.commit("switchSql")
+    },
+    switchXSS() {
+      this.$store.commit("switchXSS")
+    },
+    switchCSRF() {
+      this.$store.commit("switchCRSF")
+    }
+  },
+
+  created: function() {
+    this.sql = this.$store.state.sql
+    this.xss = this.$store.state.xss
+    this.csrf = this.$store.state.csrf
+  }
+}
+</script>
 
 <style>
 #app {
@@ -44,5 +77,9 @@
 .router-link {
   margin: 15px;
   display: inline;
+}
+
+.checkbox-container {
+  margin-top: 15px;
 }
 </style>
